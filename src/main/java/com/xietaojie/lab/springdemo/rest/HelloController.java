@@ -3,6 +3,8 @@ package com.xietaojie.lab.springdemo.rest;
 import com.xietaojie.lab.springdemo.common.dal.mapper.UserMapper;
 import com.xietaojie.lab.springdemo.common.dal.model.User;
 import com.xietaojie.lab.springdemo.config.ProjectProperties;
+import com.xietaojie.lab.springdemo.service.DalService;
+import com.xietaojie.lab.springdemo.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +27,13 @@ public class HelloController {
     private ProjectProperties projectProperties;
 
     @Autowired
-    private UserMapper userMapper;
+    private DalService dalService;
+
+    @Autowired
+    private TestService testService_1;
+
+    @Autowired
+    private TestService testService_2;
 
     @RequestMapping(value = {"/hello", "/hi", "/"}, method = RequestMethod.GET)
     public String hello() {
@@ -33,7 +41,9 @@ public class HelloController {
         user.setName("aaa");
         user.setPassword("aaa");
         user.setPhoneNumber("1234567890");
-        userMapper.insert(user);
+        dalService.insert(user);
+        testService_1.say();
+        testService_2.say();
         return projectProperties.toString();
     }
 
