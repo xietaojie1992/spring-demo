@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--数据库驱动 -->
+    <context id="LabTables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/> <!-- 为true时，不在注释中添加日期，否则反之 -->
+            <property name="suppressAllComments" value="true"/> <!-- 为false时添加注释，为true时不添加注释 -->
+        </commentGenerator>
+
+        <!--数据库链接地址账号密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/demo"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!--生成 Model 类存放位置 -->
+        <javaModelGenerator targetPackage="com.xietaojie.lab.springdemo.common.dal.model"
+                            targetProject="src/main/java/">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成 Mapper 文件存放位置 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="src/main/resources/">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--生成Mapper类存放位置 -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.xietaojie.lab.springdemo.common.dal.mapper" targetProject="src/main/java/">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!--生成对应表及类名 -->
+        <table tableName="user" domainObjectName="User">
+            <generatedKey sqlStatement="MySql" column="id" type="post"
+                          identity="true"></generatedKey>
+            <columnOverride column="del" javaType="int"></columnOverride>
+        </table>
+    </context>
+</generatorConfiguration>
