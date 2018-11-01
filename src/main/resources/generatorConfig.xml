@@ -17,13 +17,14 @@
             <property name="suppressAllComments" value="true"/> <!-- 为false时添加注释，为true时不添加注释 -->
         </commentGenerator>
 
-        <!--数据库链接地址账号密码 -->
+        <!--jdbc 连接 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/demo"
                         userId="root"
-                        password="root">
+                        password="xietaojie">
         </jdbcConnection>
 
+        <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
@@ -35,13 +36,13 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <!--生成 Mapper 文件存放位置 -->
+        <!--生成 Mapper XML 文件 -->
         <sqlMapGenerator targetPackage="mapper"
                          targetProject="src/main/resources/">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <!--生成Mapper类存放位置 -->
+        <!--生成 Mapper类存放位置 -->
         <javaClientGenerator type="XMLMAPPER"
                              targetPackage="com.xietaojie.lab.springdemo.common.dal.mapper" targetProject="src/main/java/">
             <property name="enableSubPackages" value="true"/>
