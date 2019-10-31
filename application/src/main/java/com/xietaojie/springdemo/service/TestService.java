@@ -1,0 +1,9 @@
+package com.xietaojie.springdemo.service;
+
+/**
+ * @author xietaojie1992
+ */
+public interface TestService {
+
+    void say();
+}

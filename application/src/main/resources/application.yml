@@ -1,0 +1,35 @@
+project:
+  name: "spring-demo"
+  version: "1.1.0"
+
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/demo?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+
+# Actuator
+info:
+  project: ${spring.application.name}
+  version: ${project.version}
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+# Mybatis
+mybatis:
+  mapper-locations: classpath:sqlmap/**/*Mapper.xml
+  type-aliases-package: com.xietaojie.springdemo.dao.mapper
+  configuration:
+    cache-enabled: false
+    map-underscore-to-camel-case: true
+    local-cache-scope: statement
+    jdbc-type-for-null: null
+mapper:
+  mappers:
+    - com.xietaojie.springdemo.dao.tools.Mapper
