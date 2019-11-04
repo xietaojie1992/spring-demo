@@ -35,6 +35,10 @@
                 <groupId>com.xietaojie.lab</groupId>
                 <artifactId>influxdb</artifactId>
                 <version>${project.version}</version>
+            </dependency>            <dependency>
+                <groupId>com.xietaojie.lab</groupId>
+                <artifactId>aop</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -43,6 +47,7 @@
         <module>dao</module>
         <module>application</module>
         <module>influxdb</module>
+        <module>aop</module>
     </modules>
 
 </project>

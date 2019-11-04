@@ -6,6 +6,9 @@ spring:
   profiles:
     active: dev
 
+  aop:
+    auto: true
+
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
@@ -14,8 +17,9 @@ spring:
 
 # Actuator
 info:
-  project: ${spring.application.name}
+  project: ${project.name}
   version: ${project.version}
+  author: xietaojie1992
 management:
   endpoint:
     health:
