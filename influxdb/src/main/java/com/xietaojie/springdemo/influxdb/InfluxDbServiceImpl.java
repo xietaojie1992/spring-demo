@@ -4,7 +4,7 @@ import org.influxdb.InfluxDB;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- * @author taojie
+ * @author xietaojie1992
  */
 public class InfluxDbServiceImpl {
 

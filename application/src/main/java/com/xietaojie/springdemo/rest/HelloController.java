@@ -1,9 +1,11 @@
 package com.xietaojie.springdemo.rest;
 
+import com.xietaojie.springdemo.aop.annotation.ParamCheck;
 import com.xietaojie.springdemo.config.ProjectProperties;
 import com.xietaojie.springdemo.dao.UserDAO;
 import com.xietaojie.springdemo.dao.dataobject.UserDO;
 import com.xietaojie.springdemo.service.TestService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 //@RequestMapping(value = "/")
+@Slf4j
 public class HelloController {
 
     //@Value("${project.version}")
@@ -44,11 +47,17 @@ public class HelloController {
         testService_2.say();
 
         userDAO.insert(user);
+        log.info(testAop("echo aop"));
+        log.info(testAop(null));
 
         return projectProperties.toString();
     }
 
-    @GetMapping(value = "/echo/{content}")
+    public String testAop(@ParamCheck String content) {
+        return content;
+    }
+
+    @GetMapping(value = "/aop/{content}")
     public String echo(@PathVariable("content") String content) {
         return content;
     }
