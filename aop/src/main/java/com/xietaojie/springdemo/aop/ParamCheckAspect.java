@@ -5,8 +5,6 @@ import com.xietaojie.springdemo.aop.exception.ParamCheckException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -34,7 +32,7 @@ public class ParamCheckAspect {
      * 切点（对连接点进行拦截的定义），可以是一个表达式，也可以是一个注解
      * 这里的切点是 HelloController 类的 hello 方法
      */
-    @Pointcut("execution (public * com.xietaojie.springdemo.rest..*.*(..))")
+    @Pointcut("execution (public * com.xietaojie.springdemo.cron..*.*(..))")
     public void checkParam() {
     }
 
@@ -51,16 +49,6 @@ public class ParamCheckAspect {
     @After("checkParam()")
     public void doAfter(JoinPoint joinPoint) {
         logger.info("doAfter");
-    }
-
-    @AfterReturning("checkParam()")
-    public void doAfterReturning(JoinPoint joinPoint) {
-        logger.info("doAfterReturning");
-    }
-
-    @AfterThrowing("checkParam()")
-    public void doAfterThrowing(JoinPoint joinPoint) {
-        logger.info("doAfterThrowing");
     }
 
     @Around("checkParam() && @annotation(paramCheck)")
@@ -105,6 +93,39 @@ public class ParamCheckAspect {
         Annotation[][] parameterAnnotations = method.getParameterAnnotations();
 
         logger.info("@Around checkParam()");
+        logger.info("doAround, method={}", signature);
+
+        if (parameterAnnotations == null || parameterAnnotations.length == 0) {
+            return joinPoint.proceed();
+        }
+        //获取方法参数名
+        String[] paramNames = signature.getParameterNames();
+        //获取参数值
+        Object[] paranValues = joinPoint.getArgs();
+        //获取方法参数类型
+        Class<?>[] parameterTypes = method.getParameterTypes();
+        for (int i = 0; i < parameterAnnotations.length; i++) {
+            for (int j = 0; j < parameterAnnotations[i].length; j++) {
+                //如果该参数前面的注解是ParamCheck的实例，并且notNull()=true,则进行非空校验
+                if (parameterAnnotations[i][j] != null && parameterAnnotations[i][j] instanceof ParamCheck
+                        && ((ParamCheck) parameterAnnotations[i][j]).notNull()) {
+                    paramIsNull(paramNames[i], paranValues[i], parameterTypes[i] == null ? null : parameterTypes[i].getName());
+                    break;
+                }
+            }
+        }
+        return joinPoint.proceed();
+    }
+
+    @Around("@annotation(paramCheck)")
+    public Object doAround3(ProceedingJoinPoint joinPoint, ParamCheck paramCheck) throws Throwable {
+        MethodSignature signature = ((MethodSignature) joinPoint.getSignature());
+        //得到拦截的方法
+        Method method = signature.getMethod();
+        //获取方法参数注解，返回二维数组是因为某些参数可能存在多个注解
+        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+
+        logger.info("@Around @annotation(paramCheck)");
         logger.info("doAround, method={}", signature);
 
         if (parameterAnnotations == null || parameterAnnotations.length == 0) {

@@ -7,17 +7,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 参数不为空
- *
  * @author xietaojie1992
  */
-@Target(ElementType.PARAMETER)
+@Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ParamCheck {
+public @interface ControllerWebLog {
 
     /**
-     * 是否为空，默认不为空
+     * 所调用接口的名称
      */
-    boolean notNull() default true;
+    String name();
+
+    /**
+     * 操作日志是否需要持久化存储
+     */
+    boolean intoDb() default false;
 }
