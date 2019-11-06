@@ -43,8 +43,8 @@ public class HelloController {
         user.setName("aaa");
         user.setPassword("aaa");
         user.setPhoneNumber("1234567890");
-        testService_1.say();
-        testService_2.say();
+        testService_1.say("fff");
+        testService_2.say("fff");
 
         userDAO.insert(user);
         log.info(testAop("echo aop"));
@@ -58,12 +58,14 @@ public class HelloController {
     }
 
     @GetMapping(value = "/aop/{content}")
-    public String echo(@PathVariable("content") String content) {
+    @ParamCheck
+    public String echo(@ParamCheck @PathVariable("content") String content) {
         return content;
     }
 
     @GetMapping(value = "/echo")
-    public String echo2(@RequestParam(value = "content", defaultValue = "echo", required = false) String content) {
+    @ParamCheck
+    public String echo2(@ParamCheck @RequestParam(value = "content", defaultValue = "echo", required = false) String content) {
         return content;
     }
 }

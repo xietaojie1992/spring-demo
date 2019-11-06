@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  *
  * @author xietaojie1992
  */
-@Target(ElementType.PARAMETER)
+@Target({ElementType.PARAMETER, ElementType.FIELD, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ParamCheck {

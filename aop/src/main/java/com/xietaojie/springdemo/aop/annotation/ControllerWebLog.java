@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * @author xietaojie1992
  */
-@Target(ElementType.METHOD)
+@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface ControllerWebLog {

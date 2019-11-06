@@ -1,5 +1,6 @@
 package com.xietaojie.springdemo.aop;
 
+import com.xietaojie.springdemo.aop.annotation.ControllerWebLog;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -24,7 +25,7 @@ import java.util.Arrays;
 @Component
 public class LogAspect {
 
-    private Logger webLogger  = LoggerFactory.getLogger("log.web");
+    private Logger webLogger = LoggerFactory.getLogger("log.web");
     private Logger cronLogger = LoggerFactory.getLogger("log.cron");
 
     /**************** Web Log *****************/
@@ -40,8 +41,6 @@ public class LogAspect {
      * 最后的 .*(..)	                 ：第一个 . 表示任何方法名，括号内为参数类型，.. 代表任何类型参数
      */
     /**
-     *
-     *
      *
      */
     //@Pointcut("execution (public * com.xietaojie.springdemo.rest..*.*(..))") // 匹配 com.xietaojie.springdemo.rest 包下所有方法
@@ -76,26 +75,14 @@ public class LogAspect {
      * within，匹配指定类型内的方法，匹配当前 AOP 代理对象类型的执行方法
      */
     //@Pointcut("execution (* com.xietaojie.springdemo.cron..*.*(..))")
-    @Pointcut("within(com.xietaojie.springdemo.cron.*)")
-    public void cronLog() {
+    // @Pointcut("within(com.xietaojie.springdemo.cron.*)")
+    // public void cronLog() {
+    // }
+
+    @Pointcut("@annotation(controllerWebLog)")
+    public void cronLog(ControllerWebLog controllerWebLog) {
     }
 
-    @Pointcut("@annotation(com.xietaojie.springdemo.aop.annotation.ControllerWebLog)")
-    public void annotation() {
-    }
-
-    //@Before(value = "cronLog()&&@annotation(controllerWebLog)")
-    //@Order(10)
-    //public void doBeforeCron(JoinPoint joinPoint, ControllerWebLog controllerWebLog) {
-    //    // 记录下请求内容
-    //    cronLogger.info("cron job started, {}", joinPoint.getSignature());
-    //}
-    //
-    //@AfterReturning(pointcut = "cronLog()&&@annotation(controllerWebLog)")
-    //public void doAfterReturningCron(JoinPoint joinPoint, ControllerWebLog controllerWebLog) throws Throwable {
-    //    // 处理完请求，返回内容
-    //    cronLogger.info("cron job finished, {}", joinPoint.getSignature());
-    //}
     //
     //@Before(value = "cronLog()")
     //@Order(10)
@@ -110,14 +97,14 @@ public class LogAspect {
     //    cronLogger.info("cron job finished, {}", joinPoint.getSignature());
     //}
 
-    @Before(value = "annotation()")
-    public void doBeforeCron(JoinPoint joinPoint) {
+    @Before(value = "cronLog(controllerWebLog)")
+    public void doBeforeCron(JoinPoint joinPoint, ControllerWebLog controllerWebLog) {
         // 记录下请求内容
         cronLogger.info("cron job started, {}", joinPoint.getSignature());
     }
 
-    @AfterReturning(value = "annotation()")
-    public void doAfterReturningCron(JoinPoint joinPoint) throws Throwable {
+    @AfterReturning(value = "cronLog(controllerWebLog)")
+    public void doAfterReturningCron(JoinPoint joinPoint, ControllerWebLog controllerWebLog) throws Throwable {
         // 处理完请求，返回内容
         cronLogger.info("cron job finished, {}", joinPoint.getSignature());
     }
