@@ -28,7 +28,7 @@ management:
 # Mybatis
 mybatis:
   mapper-locations: classpath:sqlmap/**/*Mapper.xml
-  type-aliases-package: com.xietaojie.springdemo.dao.mapper
+  type-aliases-package: com.xietaojie.lab.dao.mapper
   configuration:
     cache-enabled: false
     map-underscore-to-camel-case: true
@@ -36,7 +36,7 @@ mybatis:
     jdbc-type-for-null: null
 mapper:
   mappers:
-    - com.xietaojie.springdemo.dao.tools.Mapper
+    - com.xietaojie.lab.dao.tools.Mapper
 
 # Curator
 ## retryType: exponentialBackoffRetry, boundedExponentialBackoffRetry, retryNTimes, retryForever, retryUntilElapsed

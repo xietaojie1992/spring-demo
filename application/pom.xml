@@ -41,6 +41,14 @@
         </dependency>
         <dependency>
             <groupId>com.xietaojie.lab</groupId>
+            <artifactId>common-rabbitmq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xietaojie.lab</groupId>
+            <artifactId>common-zookeeper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xietaojie.lab</groupId>
             <artifactId>aop</artifactId>
         </dependency>
     </dependencies>

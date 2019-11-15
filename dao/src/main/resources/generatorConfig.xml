@@ -18,7 +18,7 @@
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
 
         <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
-            <property name="mappers" value="com.xietaojie.springdemo.dao.tools.Mapper"/>
+            <property name="mappers" value="com.xietaojie.lab.dao.tools.Mapper"/>
             <property name="beginningDelimiter" value="`"/>
             <property name="endingDelimiter" value="`"/>
         </plugin>
