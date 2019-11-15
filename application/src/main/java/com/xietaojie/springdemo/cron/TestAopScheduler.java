@@ -3,7 +3,6 @@ package com.xietaojie.springdemo.cron;
 import com.xietaojie.springdemo.aop.annotation.ControllerWebLog;
 import com.xietaojie.springdemo.aop.annotation.ParamCheck;
 import com.xietaojie.springdemo.service.TestService;
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -22,7 +21,7 @@ public class TestAopScheduler {
     @Scheduled(fixedRateString = "10000")
     @ControllerWebLog(name = "cron")
     public void schedule() {
-        log.info("{}", testAop("hello ", "world"));
+        log.info("{}", testAop("hello ", null));
     }
 
     @ControllerWebLog(name = "cron")
@@ -39,7 +38,7 @@ public class TestAopScheduler {
     //@Scheduled(cron = "0 */1 * * * ?")
     public void schedule2() {
         test();
-        testService_1.say("fffffff");
+        testService_1.say(null);
     }
 
 }

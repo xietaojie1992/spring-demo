@@ -32,14 +32,12 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
             <groupId>com.xietaojie.lab</groupId>
             <artifactId>dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.xietaojie.lab</groupId>
+            <artifactId>common</artifactId>
         </dependency>
         <dependency>
             <groupId>com.xietaojie.lab</groupId>

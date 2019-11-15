@@ -12,7 +12,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: root
+    password: xietaojie
     url: jdbc:mysql://localhost:3306/demo?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
 
 # Actuator
@@ -37,3 +37,33 @@ mybatis:
 mapper:
   mappers:
     - com.xietaojie.springdemo.dao.tools.Mapper
+
+# Curator
+## retryType: exponentialBackoffRetry, boundedExponentialBackoffRetry, retryNTimes, retryForever, retryUntilElapsed
+curator:
+  namespace: zk-demo
+  connectString: zk1:2181,zk2:2181,zk3:2181
+  sessionTimeoutMs: 5000
+  connectionTimeoutMs: 15000
+  enableListener: true
+  retryType: retryNTimes
+
+  exponentialBackoffRetry:
+    baseSleepTimeMs: 2000
+    maxRetries: 10
+
+  boundedExponentialBackoffRetry:
+    baseSleepTimeMs: 2000
+    maxSleepTimeMs: 60000
+    maxRetries: 10
+
+  retryNTimes:
+    count: 10
+    sleepMsBetweenRetries: 2000
+
+  retryForever:
+    retryIntervalMs: 1000
+
+  retryUntilElapsed:
+    maxElapsedTimeMs: 60000
+    sleepMsBetweenRetries: 2000

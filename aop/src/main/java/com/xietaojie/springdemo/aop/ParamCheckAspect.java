@@ -1,12 +1,9 @@
 package com.xietaojie.springdemo.aop;
 
 import com.xietaojie.springdemo.aop.annotation.ParamCheck;
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
@@ -15,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 /**
  * 切面类，定义切点和通知
@@ -35,20 +33,14 @@ public class ParamCheckAspect {
     public void check() {
     }
 
-
+    /**
+     * 以注解作为切点
+     */
     @Pointcut("@annotation(com.xietaojie.springdemo.aop.annotation.ParamCheck)")
     public void check2() {
     }
 
     @Around("check2()")
-    public Object doAround2(ProceedingJoinPoint joinPoint) throws Throwable {
-        MethodSignature signature = ((MethodSignature) joinPoint.getSignature());
-        logger.info("@Around checkParam()");
-        logger.info("doAround2, method={}", signature);
-        return joinPoint.proceed();
-    }
-
-//    @Around("check()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = ((MethodSignature) joinPoint.getSignature());
         //得到拦截的方法
@@ -78,6 +70,17 @@ public class ParamCheckAspect {
                 }
             }
         }
+
+        Object[] args = joinPoint.getArgs();
+        Parameter[] parameters = signature.getMethod().getParameters();
+
+        for (int i = 0; i < args.length; i++) {
+            Parameter parameter = parameters[i];
+            if (parameter.isAnnotationPresent(ParamCheck.class)) {
+                logger.info("{}", parameter);
+                //paramIsNull(paramNames[i], paranValues[i], parameterTypes[i] == null ? null : parameterTypes[i].getName());
+            }
+        }
         return joinPoint.proceed();
     }
 
@@ -91,7 +94,7 @@ public class ParamCheckAspect {
     private void paramIsNull(String paramName, Object value, String parameterType) {
         if (value == null || "".equals(value.toString().trim())) {
             logger.error("paramIsNull, paramName={}, paramterType={}", paramName, parameterType);
-//            throw new ParamCheckException(paramName, parameterType);
+            //            throw new ParamCheckException(paramName, parameterType);
         }
     }
 }

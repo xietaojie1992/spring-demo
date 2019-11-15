@@ -25,7 +25,7 @@ import java.util.Arrays;
 @Component
 public class LogAspect {
 
-    private Logger webLogger = LoggerFactory.getLogger("log.web");
+    private Logger webLogger  = LoggerFactory.getLogger("log.web");
     private Logger cronLogger = LoggerFactory.getLogger("log.cron");
 
     /**************** Web Log *****************/
@@ -78,24 +78,9 @@ public class LogAspect {
     // @Pointcut("within(com.xietaojie.springdemo.cron.*)")
     // public void cronLog() {
     // }
-
     @Pointcut("@annotation(controllerWebLog)")
     public void cronLog(ControllerWebLog controllerWebLog) {
     }
-
-    //
-    //@Before(value = "cronLog()")
-    //@Order(10)
-    //public void doBeforeCron(JoinPoint joinPoint) {
-    //    // 记录下请求内容
-    //    cronLogger.info("cron job started, {}", joinPoint.getSignature());
-    //}
-    //
-    //@AfterReturning(pointcut = "cronLog()")
-    //public void doAfterReturningCron(JoinPoint joinPoint) {
-    //    // 处理完请求，返回内容
-    //    cronLogger.info("cron job finished, {}", joinPoint.getSignature());
-    //}
 
     @Before(value = "cronLog(controllerWebLog)")
     public void doBeforeCron(JoinPoint joinPoint, ControllerWebLog controllerWebLog) {
