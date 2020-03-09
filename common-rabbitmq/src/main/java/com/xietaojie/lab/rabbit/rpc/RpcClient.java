@@ -13,6 +13,7 @@ import com.xietaojie.lab.rabbit.model.RpcReplyMsg;
 import com.xietaojie.lab.rabbit.model.RpcRequestMsg;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeoutException;
  * @author xietaojie1992
  */
 @Slf4j
-public class RpcClient {
+public class RpcClient implements Closeable {
 
     private Channel channel;
     private String  replyQueueName;
@@ -84,7 +85,7 @@ public class RpcClient {
         channel.basicPublish("", queueName, props, objectMapper.writeValueAsBytes(message));
 
         Object reply = k.uninterruptibleGet(4000);
-        log.info("task rpc cost={}", System.currentTimeMillis() - timeStamp);
+        log.info("RabbitMQ RPC time cost={}, msgId={}", System.currentTimeMillis() - timeStamp, message.getId());
         if (reply instanceof ShutdownSignalException) {
             ShutdownSignalException sig = (ShutdownSignalException) reply;
             ShutdownSignalException wrapper = new ShutdownSignalException(sig.isHardError(), sig.isInitiatedByApplication(),
@@ -101,6 +102,7 @@ public class RpcClient {
         }
     }
 
+    @Override
     public void close() throws IOException {
         try {
             if (channel != null && channel.isOpen()) {

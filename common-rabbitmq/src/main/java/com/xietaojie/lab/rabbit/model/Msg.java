@@ -12,6 +12,8 @@ public class Msg<T> implements Serializable {
 
     private static final long serialVersionUID = 253454665460039023L;
 
+    private String id;
+
     private String msgType;
 
     private String operation;

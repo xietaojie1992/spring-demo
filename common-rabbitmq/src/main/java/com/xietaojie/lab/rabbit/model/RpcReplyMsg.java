@@ -1,5 +1,6 @@
 package com.xietaojie.lab.rabbit.model;
 
+import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
@@ -7,9 +8,12 @@ import java.io.Serializable;
 /**
  * @author xietaojie1992
  */
+@Data
 public class RpcReplyMsg<T> implements Serializable {
 
     private static final long serialVersionUID = 4742534534082754844L;
+
+    private String id;
 
     private boolean success = false;
 
@@ -18,10 +22,6 @@ public class RpcReplyMsg<T> implements Serializable {
     private String resultMsg = "uninitializedMsg";
 
     private T obj = null;
-
-    public String toString() {
-        return "success=" + success + ",resultCode=" + resultCode + ",resultMsg=" + resultMsg + ",obj=" + obj;
-    }
 
     public void copy(RpcReplyMsg<T> other) {
         this.withSuccess(other.isSuccess()).withResultCode(other.getResultCode()).withResultMsg(other.getResultMsg()).withResultObj(
@@ -71,25 +71,5 @@ public class RpcReplyMsg<T> implements Serializable {
         this.resultCode = resultCode;
         this.resultMsg = resultMsg;
         return this;
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public String getResultCode() {
-        return resultCode;
-    }
-
-    public String getResultMsg() {
-        return resultMsg;
-    }
-
-    public T getObj() {
-        return obj;
     }
 }

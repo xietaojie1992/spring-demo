@@ -53,7 +53,7 @@ public class MessageConsumer implements Closeable {
 
         // 声明要订阅的队列
         channel.queueDeclare(queueName, true, false, false, null);
-        channel.basicConsume(queueName, true, new DefaultConsumer(channel) {
+        channel.basicConsume(queueName, autoAck, new DefaultConsumer(channel) {
             @Override
             public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
                     throws IOException {
