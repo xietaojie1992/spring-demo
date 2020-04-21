@@ -1,7 +1,3 @@
-/*
- * Zenlayer.com Inc.
- * Copyright (c) 2014-2020 All Rights Reserved.
- */
 package com.xietaojie.lab;
 
 import com.xietaojie.lab.faio.FAioEchoClient;

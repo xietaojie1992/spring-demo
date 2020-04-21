@@ -1,7 +1,3 @@
-/*
- * Zenlayer.com Inc.
- * Copyright (c) 2014-2020 All Rights Reserved.
- */
 package com.xietaojie.lab.nio;
 
 import lombok.extern.slf4j.Slf4j;
