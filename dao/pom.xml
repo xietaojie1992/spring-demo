@@ -17,7 +17,7 @@
         <tk.mybatis.starter.version>2.1.5</tk.mybatis.starter.version>
         <mybatis-generator.version>1.3.2</mybatis-generator.version>
         <pagehelper.version>1.2.3</pagehelper.version>
-        <mysql-connector.version>5.1.10</mysql-connector.version>
+        <mysql-connector.version>8.0.16</mysql-connector.version>
     </properties>
 
     <dependencies>
