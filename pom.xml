@@ -136,6 +136,7 @@
         <module>common-zookeeper</module>
         <module>common-rabbitmq</module>
         <module>netty</module>
+        <module>grpc</module>
     </modules>
 
     <build>
