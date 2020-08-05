@@ -15,8 +15,6 @@ import java.net.InetSocketAddress;
 
 /**
  * @author xietaojie
- * @date 2020-02-10 17:03:23
- * @version $ Id: NettyEchoServer.java, v 0.1  xietaojie Exp $
  */
 @Slf4j
 public class NettyEchoClient {
@@ -46,7 +44,7 @@ public class NettyEchoClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
-                            socketChannel.pipeline().addLast(new NettyEchoClientHandler());
+                            socketChannel.pipeline().addLast(new NettyEchoClientHandler1());
                             socketChannel.pipeline().addLast(new NettyEchoClientHandler2());
                         }
                     });

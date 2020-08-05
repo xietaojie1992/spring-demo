@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version $ Id: NettyEchoServerHandler.java, v 0.1  xietaojie Exp $
  */
 @Slf4j
-public class NettyEchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
+public class NettyEchoClientHandler1 extends SimpleChannelInboundHandler<ByteBuf> {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -28,11 +28,16 @@ public class NettyEchoClientHandler extends SimpleChannelInboundHandler<ByteBuf>
         byte[] bytes = new byte[result.readableBytes()];
         result.readBytes(bytes);
         String resultStr = "second handled msg: " + new String(bytes);
-        log.info("Server Received: {} : Inbound 1 Is OK", resultStr);
+        log.info("Server Received {} : Inbound 1 Is OK", resultStr);
 
-        // 处理完msg中的数据后往msg中重新存放新的数据继续传递
+        // 处理完msg中的数据后往msg中重新存放新的数据
         result.writeBytes(resultStr.getBytes());
+
+        // 把消息从当前节点继续往下传递
         ctx.fireChannelRead(result);
+
+        // 把消息从头节点开始传递
+        //ctx.pipeline().fireChannelRead(result);
     }
 
     @Override

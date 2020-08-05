@@ -14,8 +14,6 @@ import java.net.InetSocketAddress;
 
 /**
  * @author xietaojie
- * @date 2020-02-10 17:03:23
- * @version $ Id: NettyEchoServer.java, v 0.1  xietaojie Exp $
  */
 @Slf4j
 public class NettyEchoServer {
@@ -79,6 +77,7 @@ public class NettyEchoServer {
                         @Override
                         protected void initChannel(SocketChannel socketChannel) throws Exception {
                             socketChannel.pipeline().addLast(new NettyEchoServerHandler());
+                            socketChannel.pipeline().addLast(new NettyEchoServerOutboundHandler());
                         }
                     });
             // 绑定IP 和端口，并同步等待结果

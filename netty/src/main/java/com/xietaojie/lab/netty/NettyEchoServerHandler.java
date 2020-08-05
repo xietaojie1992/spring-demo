@@ -26,10 +26,15 @@ public class NettyEchoServerHandler extends ChannelInboundHandlerAdapter {
 
         // 把消息 Echo 回 Client
         String responseContent = requestContent;
-        ctx.writeAndFlush(Unpooled.copiedBuffer(responseContent.getBytes()))
+        //ctx.writeAndFlush(Unpooled.copiedBuffer(responseContent.getBytes()))
         // 写回数据后断开客户端的链接
         //.addListener(ChannelFutureListener.CLOSE)
-        ;
+        //;
+
+        // 处理完消息后，继续传递
+        //ctx.fireChannelRead(Unpooled.copiedBuffer(responseContent.getBytes()));
+
+        ctx.write(Unpooled.copiedBuffer(responseContent.getBytes()));
     }
 
     @Override

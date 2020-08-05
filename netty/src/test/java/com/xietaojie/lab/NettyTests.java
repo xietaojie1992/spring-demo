@@ -7,8 +7,6 @@ import java.io.IOException;
 
 /**
  * @author xietaojie
- * @date 2020-02-16 21:06:21
- * @version $ Id: NettyTests.java, v 0.1  xietaojie Exp $
  */
 public class NettyTests {
 
@@ -28,10 +26,11 @@ public class NettyTests {
             }
         });
         sendThread.start();
-        Thread.sleep(10000);
+        Thread.sleep(5000);
         sendThread.interrupt();
         client.shutdown();
         server.shutdown();
-        Thread.sleep(1000);
+        Thread.sleep(200);
+
     }
 }
